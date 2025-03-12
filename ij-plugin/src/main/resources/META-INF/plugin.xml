@@ -11,7 +11,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow doNotActivateOnStart="true"
                     factoryClass="org.jetbrains.research.tasktracker.ui.main.panel.MainPluginPanelFactory"
-                    id="TaskTracker" anchor="right"/>
+                    id="KOALA" anchor="right"/>
         <notificationGroup id="tasktracker" displayType="BALLOON"/>
     </extensions>
 
