@@ -6,10 +6,6 @@ scenario:
         - !<Survey>
           id: "NASA_task_load_index_before_tasks"
         - !<Task>
-          id: "tutorial"
-        - !<Survey>
-          id: "NASA_task_load_index"
-        - !<Task>
           id: "the_first_date_with_programming"
         - !<Survey>
           id: "NASA_task_load_index"

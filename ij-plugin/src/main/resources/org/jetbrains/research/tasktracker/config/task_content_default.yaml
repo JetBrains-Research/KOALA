@@ -19,17 +19,6 @@ tasks:
     name: "Parsons problems"
 
   - description: >
-      Solve "Tutorial" lesson in the "Kotlin Onboarding: Introduction" course, and after that, press the "Next" button.
-    files:
-      - extension: KOTLIN
-        filename: Main
-        isInternal: false
-        relativePath: Tutorial/task/src/main/kotlin/jetbrains/course/tutorial
-        sourceSet: SRC
-    id: tutorial
-    name: "Cognifire Research"
-
-  - description: >
       Solve "The first date with programming" lesson, and after that, press the "Next" button.
     files:
       - extension: KOTLIN

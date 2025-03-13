@@ -176,11 +176,6 @@ surveys:
         rows: 5
         cols: 50
       - !<Textarea>
-        text: How would you compare your experience of expressing solutions in natural language versus formal programming syntax? Please describe any differences you noticed in your approach or efficiency.
-        elementId: natural_language_question
-        rows: 5
-        cols: 50
-      - !<Textarea>
         text: Is there anything else you would like to share about your experience with this study?
         elementId: anything_else_question
         rows: 5
