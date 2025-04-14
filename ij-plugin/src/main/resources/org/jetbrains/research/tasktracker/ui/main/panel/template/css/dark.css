@@ -2,7 +2,7 @@ body {
     background: black;
 }
 
-p, label, h1, h2, h3, h4, h5 {
+p, label, h1, h2, h3, h4, h5, ol, li {
     color: #fefefe;
 }
 
@@ -11,3 +11,13 @@ select {
     background-color: #1e1e1e;
     color: #fefefe;
 }
+
+code {
+    background-color: #2d2d2d;
+    color: #e06c75;
+    border: 1px solid #444;
+    font-family: monospace;
+    padding: 0 3px;
+    border-radius: 4px;
+}
+

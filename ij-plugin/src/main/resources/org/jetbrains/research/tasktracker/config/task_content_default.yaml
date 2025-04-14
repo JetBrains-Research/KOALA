@@ -1,5 +1,24 @@
 tasks:
   - description: >
+      <ol>
+          <li>Go to <a class="defaultBrowser" href="https://author.runestone.academy/user/login">https://author.runestone.academy/user/login</a>.</li>
+          <li>Create a free account.</li>
+          <li>Enroll in the <code>agent-eval-parsons-problems-pre</code> course and take it.</li>
+          <li>After that, press the "Next" button.</li>
+      </ol>
+    id: parsons_problems_pre
+    name: "Parsons problems"
+
+  - description: >
+      <ol>
+          <li>Go to <a class="defaultBrowser" href="https://author.runestone.academy/user/login">https://author.runestone.academy/user/login</a>.</li>
+          <li>Enroll in the <code>agent-eval-parsons-problems-post</code> course and take it.</li>
+          <li>After that, press the "Next" button.</li>
+      </ol>
+    id: parsons_problems_post
+    name: "Parsons problems"
+
+  - description: >
       Solve "Tutorial" lesson in the "Kotlin Onboarding: Introduction" course, and after that, press the "Next" button.
     files:
       - extension: KOTLIN
