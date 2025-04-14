@@ -203,7 +203,7 @@ data class SliderHtmlQuestion(
         (min..max step step).forEachIndexed { index, value ->
             append("<div style=\"text-align: center; flex: 1; position: relative;\">")
             append("<div style=\"width: 2px; height: 10px; background: white; margin: auto;\"></div>")
-            if (index % 5 == 0) {
+            if (index % TICK_LABEL_FREQUENCY == 0) {
                 append("<span style=\"display: block; margin-top: 2px;\">$value</span>")
             }
             append("</div>")
@@ -214,5 +214,9 @@ data class SliderHtmlQuestion(
         append("<span>${labels.min}</span>")
         append("<span>${labels.max}</span>")
         append("</div>")
+    }
+
+    companion object {
+        private const val TICK_LABEL_FREQUENCY = 5
     }
 }
