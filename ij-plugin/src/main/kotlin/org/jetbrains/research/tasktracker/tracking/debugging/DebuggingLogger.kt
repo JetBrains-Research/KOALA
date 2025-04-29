@@ -25,27 +25,29 @@ class DebuggingLogger(val project: Project) : BaseLogger() {
     /**
      * @return text from the breakpoint location or selected text based on the debugging info
      */
-    private fun getSelectedText(info: DebuggingInfo): String? = ApplicationManager.getApplication().runReadAction<String?> {
-        when (info) {
-            is DebuggingInfo.BreakpointLocation -> {
-                // Get text from the file at the breakpoint location
-                val virtualFile = LocalFileSystem.getInstance().findFileByIoFile(File(info.filePath))
-                if (virtualFile != null) {
-                    val document = FileDocumentManager.getInstance().getDocument(virtualFile)
-                    if (document != null && info.line < document.lineCount) {
-                        // Get the text of the line at the breakpoint location
-                        val lineStartOffset = document.getLineStartOffset(info.line)
-                        val lineEndOffset = document.getLineEndOffset(info.line)
-                        return@runReadAction document.getText(TextRange(lineStartOffset, lineEndOffset)).trim()
+    private fun getSelectedText(info: DebuggingInfo): String? =
+        ApplicationManager.getApplication().runReadAction<String?> {
+            when (info) {
+                is DebuggingInfo.BreakpointLocation -> {
+                    // Get text from the file at the breakpoint location
+                    val virtualFile = LocalFileSystem.getInstance().findFileByIoFile(File(info.filePath))
+                    if (virtualFile != null) {
+                        val document = FileDocumentManager.getInstance().getDocument(virtualFile)
+                        if (document != null && info.line < document.lineCount) {
+                            // Get the text of the line at the breakpoint location
+                            val lineStartOffset = document.getLineStartOffset(info.line)
+                            val lineEndOffset = document.getLineEndOffset(info.line)
+                            return@runReadAction document.getText(TextRange(lineStartOffset, lineEndOffset)).trim()
+                        }
                     }
+                    // If file not found or line is out of range, return null
+                    null
                 }
-                // If file not found or line is out of range, return null
-                null
-            }
-            else -> {
-                // For other types of info, get selected text from the current editor
-                FileEditorManager.getInstance(project).selectedTextEditor?.selectionModel?.selectedText
+
+                else -> {
+                    // For other types of info, get selected text from the current editor
+                    FileEditorManager.getInstance(project).selectedTextEditor?.selectionModel?.selectedText
+                }
             }
         }
-    }
 }

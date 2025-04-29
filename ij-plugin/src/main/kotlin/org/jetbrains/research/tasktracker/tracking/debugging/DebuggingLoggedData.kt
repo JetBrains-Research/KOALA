@@ -8,19 +8,19 @@ object DebuggingLoggedData : LoggedData<DebuggingEvent, String?>() {
         LoggedDataGetter("date") { it.time.toString() },
         LoggedDataGetter("type") { it.type.name },
         LoggedDataGetter("info") { it.info.toString() },
-        LoggedDataGetter("file_path") { 
+        LoggedDataGetter("file_path") {
             when (val info = it.info) {
                 is DebuggingInfo.BreakpointLocation -> info.filePath
                 else -> null
             }
         },
-        LoggedDataGetter("line") { 
+        LoggedDataGetter("line") {
             when (val info = it.info) {
                 is DebuggingInfo.BreakpointLocation -> info.line.toString()
                 else -> null
             }
         },
-        LoggedDataGetter("message") { 
+        LoggedDataGetter("message") {
             when (val info = it.info) {
                 is DebuggingInfo.Message -> info.message
                 is DebuggingInfo.SessionInfo -> info.sessionName
