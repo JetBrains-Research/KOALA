@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jetbrains.research.tasktracker.TaskTrackerPlugin
 import org.jetbrains.research.tasktracker.tracking.activity.ActivityTracker
+import org.jetbrains.research.tasktracker.tracking.debugging.DebuggingTracker
 import org.jetbrains.research.tasktracker.tracking.fileEditor.FileEditorTracker
 import org.jetbrains.research.tasktracker.tracking.toolWindow.ToolWindowTracker
 import kotlin.io.path.Path
@@ -26,7 +27,8 @@ class TrackingService : Disposable {
             listOf(
                 ActivityTracker(project),
                 ToolWindowTracker(project),
-                FileEditorTracker(project)
+                FileEditorTracker(project),
+                DebuggingTracker(project),
             )
         )
         project.basePath?.let { path ->
