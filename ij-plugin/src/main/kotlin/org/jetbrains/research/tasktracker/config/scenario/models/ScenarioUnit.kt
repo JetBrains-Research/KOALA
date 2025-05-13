@@ -29,10 +29,13 @@ class TaskListWithSingleChoiceUnit(val taskIds: List<String>) : ScenarioUnit
  * Task unit loaded by the id.
  * @see [org.jetbrains.research.tasktracker.config.content.TaskContentConfig]
  * And [org.jetbrains.research.tasktracker.config.content.task.ProgrammingTask]
+ *
+ * @param id The ID of the task to load
+ * @param timerSeconds Optional timer in seconds. If provided, the task will automatically complete when the timer expires
  */
 @Serializable
 @SerialName("Task")
-class TaskUnit(val id: String) : ScenarioUnit
+class TaskUnit(val id: String, val timerSeconds: Long? = null) : ScenarioUnit
 
 /**
  * Setting Unit represents by MainIdeConfig format.

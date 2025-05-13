@@ -18,6 +18,9 @@ import org.jetbrains.research.tasktracker.ui.main.panel.template.*
 import org.jetbrains.research.tasktracker.util.UIBundle
 import org.jetbrains.research.tasktracker.util.notifier.notifyError
 import org.jetbrains.research.tasktracker.util.survey.SurveyParser
+import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.time.Duration.Companion.seconds
 
 typealias Panel = MainPluginPanelFactory
 
@@ -93,18 +96,41 @@ fun Panel.processTask(id: String): Task {
 /**
  * Switches the panel to the task solving window.
  * It contains task name, description and I/O data.
+ *
+ * @param id The ID of the task to solve
+ * @param nextTasks List of task IDs to select after this task is completed
+ * @param timerSeconds Optional timer in seconds. If provided, the next action will be triggered automatically when the timer expires
  */
-private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList()) {
+private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), timerSeconds: Long? = null) {
     val task = processTask(id)
     loadBasePage(SolvePageTemplate(task))
-    setNextAction {
-        TaskFileHandler.disposeTask(project, task)
-        if (nextTasks.isNotEmpty()) {
-            selectTask(nextTasks)
-        } else {
-            processScenario()
+    val timer = Timer()
+    val isNextActionPerforming = AtomicBoolean(false)
+    val nextAction = {
+        if (isNextActionPerforming.compareAndSet(false, true)) {
+            timer.cancel()
+            TaskFileHandler.disposeTask(project, task)
+            if (nextTasks.isNotEmpty()) {
+                selectTask(nextTasks)
+            } else {
+                processScenario()
+            }
         }
     }
+
+    setNextAction(nextAction)
+
+    // Set up timer if specified
+    timerSeconds?.let { seconds ->
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                ApplicationManager.getApplication().invokeLater {
+                    nextAction.invoke()
+                }
+            }
+        }, seconds.seconds.inWholeMilliseconds)
+    }
+
     listenFileRedirection(task)
 }
 
@@ -157,7 +183,7 @@ fun Panel.processScenario() {
         }
 
         is TaskUnit -> {
-            solveTask(unit.id)
+            solveTask(unit.id, timerSeconds = unit.timerSeconds)
         }
 
         is IdeSettingUnit -> {
