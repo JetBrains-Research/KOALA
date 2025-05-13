@@ -99,7 +99,7 @@ fun Panel.processTask(id: String): Task {
  *
  * @param id The ID of the task to solve
  * @param nextTasks List of task IDs to select after this task is completed
- * @param timerSeconds Optional timer in seconds. If provided, the next action will be triggered automatically when the timer expires
+ * @param timerSeconds Optional timer in seconds
  */
 private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), timerSeconds: Long? = null) {
     val task = processTask(id)
@@ -122,13 +122,16 @@ private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), t
 
     // Set up timer if specified
     timerSeconds?.let { seconds ->
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                ApplicationManager.getApplication().invokeLater {
-                    nextAction.invoke()
+        timer.schedule(
+            object : TimerTask() {
+                override fun run() {
+                    ApplicationManager.getApplication().invokeLater {
+                        nextAction.invoke()
+                    }
                 }
-            }
-        }, seconds.seconds.inWholeMilliseconds)
+            },
+            seconds.seconds.inWholeMilliseconds,
+        )
     }
 
     listenFileRedirection(task)

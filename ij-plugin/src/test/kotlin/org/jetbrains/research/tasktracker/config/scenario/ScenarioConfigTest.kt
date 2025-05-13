@@ -5,7 +5,6 @@ import org.jetbrains.research.tasktracker.config.scenario.models.TaskUnit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.io.File
 
 class ScenarioConfigTest {
     private fun loadTestScenario(): String {
