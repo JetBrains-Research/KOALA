@@ -39,7 +39,7 @@ class MainPluginPanelFactory : ToolWindowFactory {
     // TODO: init in other place, states can be saved between sessions
     private val nextButton = createJButton("ui.button.next")
     private val backButton = createJButton("ui.button.back", isVisibleProp = false)
-    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
+//    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
     private val logger: Logger = Logger.getInstance(MainPluginPanelFactory::class.java)
 
     lateinit var trackingService: TrackingService
@@ -53,7 +53,7 @@ class MainPluginPanelFactory : ToolWindowFactory {
         mainWindow = project.getService(MainWindowService::class.java).mainWindow
         trackingService = project.getService(TrackingService::class.java)
         mainWindow.jComponent.size = JBUI.size(toolWindow.component.width, toolWindow.component.height)
-        pauseButton.setListener { stopTracking() }
+//        pauseButton.setListener { stopTracking() }
         mainWindow.onError {
             nextButton.text = UIBundle.message("ui.button.welcome")
             setNextAction { agreementAcceptance() }
@@ -61,7 +61,7 @@ class MainPluginPanelFactory : ToolWindowFactory {
         agreementAcceptance()
         val buttonPanel = JBPanel<JBPanel<*>>(FlowLayout()).apply {
             add(backButton)
-            add(pauseButton)
+//            add(pauseButton)
             add(nextButton)
         }
         val panel = JBPanel<JBPanel<*>>(BorderLayout()).apply {
@@ -87,16 +87,16 @@ class MainPluginPanelFactory : ToolWindowFactory {
         mainWindow.loadHtmlTemplate(template)
         backButton.isVisible = isVisibleBackButton
         nextButton.isVisible = isVisibleNextButton
-        pauseButton.isVisible = isVisiblePauseButton
+//        pauseButton.isVisible = isVisiblePauseButton
         backButtonText?.let {
             backButton.text = UIBundle.message(it)
         }
         buttonTextKey?.let {
             nextButton.text = UIBundle.message(it)
         }
-        pauseButtonText?.let {
-            pauseButton.text = UIBundle.message(it)
-        }
+//        pauseButtonText?.let {
+//            pauseButton.text = UIBundle.message(it)
+//        }
     }
 
     fun focusOnfFileById(task: Task, id: String?) {
