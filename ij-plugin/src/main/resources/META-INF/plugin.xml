@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>org.jetbrains.research.tasktracker</id>
-    <name>Task Tracker</name>
+    <name>KOALA</name>
     <vendor>JetBrains Research</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -13,6 +13,7 @@
                     factoryClass="org.jetbrains.research.tasktracker.ui.main.panel.MainPluginPanelFactory"
                     id="KOALA" anchor="right"/>
         <notificationGroup id="tasktracker" displayType="BALLOON"/>
+        <statusBarWidgetFactory implementation="org.jetbrains.research.tasktracker.ui.statusbar.TimerStatusBarWidgetFactory"/>
     </extensions>
 
     <actions>

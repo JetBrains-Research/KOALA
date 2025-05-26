@@ -1,6 +1,8 @@
 package org.jetbrains.research.tasktracker.ui.main.panel.panelStates
 
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.wm.WindowManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,12 +17,12 @@ import org.jetbrains.research.tasktracker.ui.main.panel.runOnSuccess
 import org.jetbrains.research.tasktracker.ui.main.panel.storage.GlobalPluginStorage
 import org.jetbrains.research.tasktracker.ui.main.panel.storage.MainPanelStorage
 import org.jetbrains.research.tasktracker.ui.main.panel.template.*
+import org.jetbrains.research.tasktracker.ui.statusbar.TimerStatusBarWidget
 import org.jetbrains.research.tasktracker.util.UIBundle
 import org.jetbrains.research.tasktracker.util.notifier.notifyError
 import org.jetbrains.research.tasktracker.util.survey.SurveyParser
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.time.Duration.Companion.seconds
 
 typealias Panel = MainPluginPanelFactory
 
@@ -93,6 +95,36 @@ fun Panel.processTask(id: String): Task {
     return task
 }
 
+private val Project.timerWidget: TimerStatusBarWidget?
+    get() = WindowManager.getInstance().getStatusBar(this)?.getWidget(TimerStatusBarWidget.ID) as? TimerStatusBarWidget
+
+private fun Panel.startTimerFor(timer: Timer, seconds: Long, nextAction: () -> Unit) {
+    // Get or create the timer widget
+    val timerWidget = project.timerWidget
+
+    // Initialize with total time
+    timerWidget?.updateTime(seconds)
+
+    // Create a timer that updates every second
+    var remainingSeconds = seconds
+    timer.scheduleAtFixedRate(
+        object : TimerTask() {
+            override fun run() {
+                remainingSeconds--
+                ApplicationManager.getApplication().invokeLater {
+                    timerWidget?.updateTime(remainingSeconds)
+                    if (remainingSeconds <= 0) {
+                        nextAction.invoke()
+                        timerWidget?.stopTime()
+                    }
+                }
+            }
+        },
+        1000, // 1 second delay
+        1000  // 1 second period
+    )
+}
+
 /**
  * Switches the panel to the task solving window.
  * It contains task name, description and I/O data.
@@ -109,6 +141,7 @@ private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), t
     val nextAction = {
         if (isNextActionPerforming.compareAndSet(false, true)) {
             timer.cancel()
+            project.timerWidget?.stopTime()
             TaskFileHandler.disposeTask(project, task)
             if (nextTasks.isNotEmpty()) {
                 selectTask(nextTasks)
@@ -122,16 +155,7 @@ private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), t
 
     // Set up timer if specified
     timerSeconds?.let { seconds ->
-        timer.schedule(
-            object : TimerTask() {
-                override fun run() {
-                    ApplicationManager.getApplication().invokeLater {
-                        nextAction.invoke()
-                    }
-                }
-            },
-            seconds.seconds.inWholeMilliseconds,
-        )
+        startTimerFor(timer, seconds, nextAction)
     }
 
     listenFileRedirection(task)
