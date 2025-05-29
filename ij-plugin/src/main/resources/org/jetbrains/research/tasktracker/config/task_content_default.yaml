@@ -1,4 +1,46 @@
 tasks:
-  - description: "Description should be specified here"
+  - description: >
+      Solve three projects in the Kotlin introduction course (The first date with programming, Warm Up and Mastermind Advanced, Almost Done), and after that, press the "Next" button.
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: LastPush/CompleteTheProject/src/main/kotlin/jetbrains/kotlin/course/last/push
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: LastPush/PatternsGenerator/src/main/kotlin/jetbrains/kotlin/course/last/push
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: RealQuestions
+        isInternal: false
+        relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: AlmostDone/task/src/main/kotlin/jetbrains/kotlin/course/almost/done
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Hangman/CompleteTheProject/src/main/kotlin/jetbrains/kotlin/course/hangman
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Hangman/CreateTheGame/src/main/kotlin/jetbrains/kotlin/course/hangman
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Introduction/task/src/main/kotlin/jetbrains/kotlin/course/welcome
+        sourceSet: SRC
     id: main
-    name: "Name Example"
+    name: "AI Hints Research"
