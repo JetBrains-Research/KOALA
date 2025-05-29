@@ -7,9 +7,13 @@ import com.intellij.util.Consumer
 import java.awt.Component
 import java.awt.event.MouseEvent
 
-class TimerStatusBarWidget(private val project: Project) : StatusBarWidget, StatusBarWidget.TextPresentation {
+class TimerStatusBarWidget(@Suppress("UnusedPrivateProperty") private val project: Project) :
+    StatusBarWidget,
+    StatusBarWidget.TextPresentation {
     companion object {
         const val ID = "TaskTrackerTimer"
+
+        const val SECONDS_IN_MINUTE = 60
     }
 
     private var timeRemaining: Long? = null
@@ -19,10 +23,11 @@ class TimerStatusBarWidget(private val project: Project) : StatusBarWidget, Stat
 
     override fun getPresentation(): StatusBarWidget.WidgetPresentation = this
 
+    @Suppress("ImplicitDefaultLocale")
     override fun getText(): String {
         val time = timeRemaining ?: return ""
-        val minutes = time / 60
-        val seconds = time % 60
+        val minutes = time / SECONDS_IN_MINUTE
+        val seconds = time % SECONDS_IN_MINUTE
         return String.format("%02d:%02d", minutes, seconds)
     }
 

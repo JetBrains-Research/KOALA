@@ -20,7 +20,6 @@ import org.jetbrains.research.tasktracker.ui.main.panel.models.AgreementChecker
 import org.jetbrains.research.tasktracker.ui.main.panel.models.ButtonState
 import org.jetbrains.research.tasktracker.ui.main.panel.models.LinkType
 import org.jetbrains.research.tasktracker.ui.main.panel.panelStates.agreementAcceptance
-import org.jetbrains.research.tasktracker.ui.main.panel.panelStates.stopTracking
 import org.jetbrains.research.tasktracker.ui.main.panel.storage.GlobalPluginStorage
 import org.jetbrains.research.tasktracker.ui.main.panel.template.HtmlTemplate
 import org.jetbrains.research.tasktracker.util.UIBundle
@@ -39,7 +38,9 @@ class MainPluginPanelFactory : ToolWindowFactory {
     // TODO: init in other place, states can be saved between sessions
     private val nextButton = createJButton("ui.button.next")
     private val backButton = createJButton("ui.button.back", isVisibleProp = false)
-//    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
+
+    //    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
+
     private val logger: Logger = Logger.getInstance(MainPluginPanelFactory::class.java)
 
     lateinit var trackingService: TrackingService
@@ -81,7 +82,9 @@ class MainPluginPanelFactory : ToolWindowFactory {
         isVisibleBackButton: Boolean = false,
         backButtonText: String? = null,
         isVisibleNextButton: Boolean = true,
+        @Suppress("UnusedParameter")
         pauseButtonText: String? = null,
+        @Suppress("UnusedParameter")
         isVisiblePauseButton: Boolean = true
     ) {
         mainWindow.loadHtmlTemplate(template)

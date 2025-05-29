@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package org.jetbrains.research.tasktracker.ui.main.panel.panelStates
 
 import com.intellij.openapi.application.ApplicationManager
@@ -25,6 +27,9 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 typealias Panel = MainPluginPanelFactory
+
+const val TIMER_DELAY = 1000L
+const val TIMER_PERIOD = 1000L
 
 /**
  * A page for collecting user data, and checkboxes for user agreement acceptance.
@@ -120,8 +125,8 @@ private fun Panel.startTimerFor(timer: Timer, seconds: Long, nextAction: () -> U
                 }
             }
         },
-        1000, // 1 second delay
-        1000  // 1 second period
+        TIMER_DELAY, // 1 second delay
+        TIMER_PERIOD // 1 second period
     )
 }
 
