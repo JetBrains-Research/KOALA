@@ -1,22 +1,17 @@
 tasks:
   - description: >
-      Solve three projects in the Kotlin introduction course (The first date with programming, Warm Up and Mastermind Advanced, Almost Done), and after that, press the "Next" button.
+      TODO text here
+    id: introductory_tasks
     files:
       - extension: KOTLIN
         filename: Main
         isInternal: false
-        relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
+        relativePath: Introduction/task/src/main/kotlin/jetbrains/kotlin/course/welcome
         sourceSet: SRC
-      - extension: KOTLIN
-        filename: Main
-        isInternal: false
-        relativePath: LastPush/CompleteTheProject/src/main/kotlin/jetbrains/kotlin/course/last/push
-        sourceSet: SRC
-      - extension: KOTLIN
-        filename: Main
-        isInternal: false
-        relativePath: LastPush/PatternsGenerator/src/main/kotlin/jetbrains/kotlin/course/last/push
-        sourceSet: SRC
+    name: "Introduction"
+  - description: >
+      Solve The first date with programming task, and then press "Next".
+    files:
       - extension: KOTLIN
         filename: RealQuestions
         isInternal: false
@@ -25,8 +20,13 @@ tasks:
       - extension: KOTLIN
         filename: Main
         isInternal: false
-        relativePath: AlmostDone/task/src/main/kotlin/jetbrains/kotlin/course/almost/done
+        relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
         sourceSet: SRC
+    id: pre_test_intro
+    name: "The first date with programming Task"
+  - description: >
+      Solve Hangman task, and then press "Next".
+    files:
       - extension: KOTLIN
         filename: Main
         isInternal: false
@@ -37,10 +37,30 @@ tasks:
         isInternal: false
         relativePath: Hangman/CreateTheGame/src/main/kotlin/jetbrains/kotlin/course/hangman
         sourceSet: SRC
+    id: pre_test_main
+    name: "Hangman Task"
+  - description: >
+      Solve Almost done task, and then press "Next".
+    files:
       - extension: KOTLIN
         filename: Main
         isInternal: false
-        relativePath: Introduction/task/src/main/kotlin/jetbrains/kotlin/course/welcome
+        relativePath: AlmostDone/task/src/main/kotlin/jetbrains/kotlin/course/almost/done
         sourceSet: SRC
-    id: main
-    name: "AI Hints Research"
+    id: ai_assistant_training
+    name: "Almost done Task"
+  - description: >
+      Solve Last push task, and then press "Next".
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: LastPush/CompleteTheProject/src/main/kotlin/jetbrains/kotlin/course/last/push
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: LastPush/PatternsGenerator/src/main/kotlin/jetbrains/kotlin/course/last/push
+        sourceSet: SRC
+    id: post_test_main
+    name: "Last Push Task"

@@ -16,10 +16,7 @@ scenario:
           timerSeconds: 2400
     - units:
         - !<Task>
-          id: "post_test_intro"
-          timerSeconds: 180
-        - !<Task>
           id: "post_test_main"
-          timerSeconds: 420
+          timerSeconds: 600
         - !<Survey>
           id: "final_survey"
