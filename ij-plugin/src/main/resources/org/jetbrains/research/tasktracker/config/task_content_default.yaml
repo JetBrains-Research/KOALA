@@ -1,6 +1,6 @@
 tasks:
   - description: >
-      TODO text here
+      Solve Introduction and The first date with programming tasks, and then press "Next".
     id: introductory_tasks
     files:
       - extension: KOTLIN
@@ -8,10 +8,6 @@ tasks:
         isInternal: false
         relativePath: Introduction/task/src/main/kotlin/jetbrains/kotlin/course/welcome
         sourceSet: SRC
-    name: "Introduction"
-  - description: >
-      Solve The first date with programming task, and then press "Next".
-    files:
       - extension: KOTLIN
         filename: RealQuestions
         isInternal: false
@@ -22,10 +18,24 @@ tasks:
         isInternal: false
         relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
         sourceSet: SRC
-    id: pre_test_intro
-    name: "The first date with programming Task"
+    name: "Introduction"
   - description: >
-      Solve Hangman task, and then press "Next".
+      Solve first part of Hangman task, and then press "Next".
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Hangman/CompleteTheProject/src/main/kotlin/jetbrains/kotlin/course/hangman
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Hangman/CreateTheGame/src/main/kotlin/jetbrains/kotlin/course/hangman
+        sourceSet: SRC
+    id: pre_test_intro
+    name: "Hangman First part"
+  - description: >
+      Solve second part of Hangman task, and then press "Next".
     files:
       - extension: KOTLIN
         filename: Main
@@ -38,7 +48,7 @@ tasks:
         relativePath: Hangman/CreateTheGame/src/main/kotlin/jetbrains/kotlin/course/hangman
         sourceSet: SRC
     id: pre_test_main
-    name: "Hangman Task"
+    name: "Hangman Second part"
   - description: >
       Solve Almost done task, and then press "Next".
     files:
@@ -50,7 +60,22 @@ tasks:
     id: ai_assistant_training
     name: "Almost done Task"
   - description: >
-      Solve Last push task, and then press "Next".
+      Solve Last push first part, and then press "Next".
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: LastPush/CompleteTheProject/src/main/kotlin/jetbrains/kotlin/course/last/push
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: LastPush/PatternsGenerator/src/main/kotlin/jetbrains/kotlin/course/last/push
+        sourceSet: SRC
+    id: post_test_intro
+    name: "Last Push First part"
+  - description: >
+      Solve Last push second part, and then press "Next".
     files:
       - extension: KOTLIN
         filename: Main
@@ -63,4 +88,4 @@ tasks:
         relativePath: LastPush/PatternsGenerator/src/main/kotlin/jetbrains/kotlin/course/last/push
         sourceSet: SRC
     id: post_test_main
-    name: "Last Push Task"
+    name: "Last Push Second part"
