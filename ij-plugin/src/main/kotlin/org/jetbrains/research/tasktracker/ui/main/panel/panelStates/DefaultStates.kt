@@ -120,10 +120,13 @@ private fun Panel.startTimerFor(timer: Timer, seconds: Long, onEachSecond: (Long
         object : TimerTask() {
             override fun run() {
                 val time = --remainingSeconds
+                if (time <= 0) {
+                    timer.cancel()
+                }
                 ApplicationManager.getApplication().invokeLater {
                     onEachSecond.invoke(time)
                     timerWidget?.updateTime(time)
-                    if (remainingSeconds <= 0) {
+                    if (time <= 0) {
                         timerWidget?.stopTime()
 
                         Messages.showInfoMessage(

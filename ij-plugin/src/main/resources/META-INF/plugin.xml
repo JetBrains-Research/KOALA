@@ -13,7 +13,7 @@
                     factoryClass="org.jetbrains.research.tasktracker.ui.main.panel.MainPluginPanelFactory"
                     id="KOALA" anchor="right"/>
         <notificationGroup id="tasktracker" displayType="BALLOON"/>
-        <statusBarWidgetFactory implementation="org.jetbrains.research.tasktracker.ui.statusbar.TimerStatusBarWidgetFactory"/>
+        <statusBarWidgetFactory implementation="org.jetbrains.research.tasktracker.ui.statusbar.TimerStatusBarWidgetFactory" order="last"/>
     </extensions>
 
     <actions>

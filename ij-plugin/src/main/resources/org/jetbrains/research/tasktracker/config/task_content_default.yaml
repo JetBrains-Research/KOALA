@@ -20,7 +20,8 @@ tasks:
         sourceSet: SRC
     name: "Introduction"
   - description: >
-      Please open the first "Hangman" task and read its description. You have 3 minutes for this.
+      Please open the first "Hangman" task and read its description. 
+      You have 3 minutes for this. You can find the timer in the Koala window or on the bottom right corner of the IDE.
     files:
       - extension: KOTLIN
         filename: Main
@@ -35,7 +36,8 @@ tasks:
     id: pre_test_intro
     name: "Hangman First part"
   - description: >
-      Please open the next "Hangman" task and read its description, you will need to debug and fix the code. You have 7 minutes for this.
+      Please open the next "Hangman" task and read its description, you will need to debug and fix the code. 
+      You have 7 minutes for this. You can find the timer in the Koala window or on the bottom right corner of the IDE.
     files:
       - extension: KOTLIN
         filename: Main
@@ -63,7 +65,8 @@ tasks:
     id: ai_assistant_training
     name: "Almost done Task"
   - description: >
-      Please open the first "Last push" task and read its description. You have 3 minutes for this.
+      Please open the first "Last push" task and read its description. 
+      You have 3 minutes for this. You can find the timer in the Koala window or on the bottom right corner of the IDE.
     files:
       - extension: KOTLIN
         filename: Main
@@ -78,7 +81,8 @@ tasks:
     id: post_test_intro
     name: "Last Push First part"
   - description: >
-      Please open the next "Last push" task and read its description, you will need to debug and fix the code. You have 7 minutes for this.
+      Please open the next "Last push" task and read its description, you will need to debug and fix the code. 
+      You have 7 minutes for this. You can find the timer in the Koala window or on the bottom right corner of the IDE.
     files:
       - extension: KOTLIN
         filename: Main
