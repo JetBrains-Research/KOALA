@@ -36,7 +36,7 @@ import java.awt.FlowLayout
 @Suppress("TooManyFunctions")
 class MainPluginPanelFactory : ToolWindowFactory {
     // TODO: init in other place, states can be saved between sessions
-    private val nextButton = createJButton("ui.button.next")
+    val nextButton = createJButton("ui.button.next")
     private val backButton = createJButton("ui.button.back", isVisibleProp = false)
 
     //    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
@@ -78,18 +78,20 @@ class MainPluginPanelFactory : ToolWindowFactory {
     @Suppress("LongParameterList")
     fun loadBasePage(
         template: HtmlTemplate,
-        buttonTextKey: String? = null,
+        buttonTextKey: String? = "ui.button.next",
         isVisibleBackButton: Boolean = false,
         backButtonText: String? = null,
         isVisibleNextButton: Boolean = true,
         @Suppress("UnusedParameter")
         pauseButtonText: String? = null,
         @Suppress("UnusedParameter")
-        isVisiblePauseButton: Boolean = true
+        isVisiblePauseButton: Boolean = true,
+        isNextButtonEnabled: Boolean = true,
     ) {
         mainWindow.loadHtmlTemplate(template)
         backButton.isVisible = isVisibleBackButton
         nextButton.isVisible = isVisibleNextButton
+        nextButton.isEnabled = isNextButtonEnabled
 //        pauseButton.isVisible = isVisiblePauseButton
         backButtonText?.let {
             backButton.text = UIBundle.message(it)

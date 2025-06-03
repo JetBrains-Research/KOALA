@@ -4,6 +4,8 @@ package org.jetbrains.research.tasktracker.ui.main.panel.panelStates
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.wm.ToolWindowManager
 import com.intellij.openapi.wm.WindowManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -14,6 +16,7 @@ import org.jetbrains.research.tasktracker.config.content.task.base.TaskWithFiles
 import org.jetbrains.research.tasktracker.config.scenario.models.*
 import org.jetbrains.research.tasktracker.requests.IdRequests
 import org.jetbrains.research.tasktracker.tracking.TaskFileHandler
+import org.jetbrains.research.tasktracker.ui.getTimeText
 import org.jetbrains.research.tasktracker.ui.main.panel.MainPluginPanelFactory
 import org.jetbrains.research.tasktracker.ui.main.panel.runOnSuccess
 import org.jetbrains.research.tasktracker.ui.main.panel.storage.GlobalPluginStorage
@@ -103,24 +106,35 @@ fun Panel.processTask(id: String): Task {
 private val Project.timerWidget: TimerStatusBarWidget?
     get() = WindowManager.getInstance().getStatusBar(this)?.getWidget(TimerStatusBarWidget.ID) as? TimerStatusBarWidget
 
-private fun Panel.startTimerFor(timer: Timer, seconds: Long, nextAction: () -> Unit) {
+private fun Panel.startTimerFor(timer: Timer, seconds: Long, onEachSecond: (Long) -> Unit = {}, nextAction: () -> Unit) {
     // Get or create the timer widget
     val timerWidget = project.timerWidget
 
     // Initialize with total time
     timerWidget?.updateTime(seconds)
+    onEachSecond.invoke(seconds)
 
     // Create a timer that updates every second
     var remainingSeconds = seconds
     timer.scheduleAtFixedRate(
         object : TimerTask() {
             override fun run() {
-                remainingSeconds--
+                val time = --remainingSeconds
                 ApplicationManager.getApplication().invokeLater {
-                    timerWidget?.updateTime(remainingSeconds)
+                    onEachSecond.invoke(time)
+                    timerWidget?.updateTime(time)
                     if (remainingSeconds <= 0) {
-                        nextAction.invoke()
                         timerWidget?.stopTime()
+
+                        Messages.showInfoMessage(
+                            project,
+                            "Time is up! Go to the Koala plugin and follow instructions.",
+                            "Time To Continue",
+                        )
+                        val toolWindow = ToolWindowManager.getInstance(project).getToolWindow("KOALA")
+                        toolWindow?.show()
+
+                        nextAction.invoke()
                     }
                 }
             }
@@ -140,7 +154,7 @@ private fun Panel.startTimerFor(timer: Timer, seconds: Long, nextAction: () -> U
  */
 private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), timerSeconds: Long? = null) {
     val task = processTask(id)
-    loadBasePage(SolvePageTemplate(task))
+    loadBasePage(SolvePageTemplate(task), isNextButtonEnabled = timerSeconds == null)
     val timer = Timer()
     val isNextActionPerforming = AtomicBoolean(false)
     val nextAction = {
@@ -160,7 +174,13 @@ private fun Panel.solveTask(id: String, nextTasks: List<String> = emptyList(), t
 
     // Set up timer if specified
     timerSeconds?.let { seconds ->
-        startTimerFor(timer, seconds, nextAction)
+        startTimerFor(
+            timer, seconds,
+            onEachSecond = { time ->
+                nextButton.text = "Time left: ${getTimeText(time)}"
+            },
+            nextAction = nextAction,
+        )
     }
 
     listenFileRedirection(task)
