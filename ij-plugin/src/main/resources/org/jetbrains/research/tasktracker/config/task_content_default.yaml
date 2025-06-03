@@ -1,6 +1,6 @@
 tasks:
   - description: >
-      Solve Introduction and The first date with programming tasks, and then press "Next".
+      Solve "Introduction" and "The first date with programming" lessons, and then press "Next".
     id: introductory_tasks
     files:
       - extension: KOTLIN
@@ -20,7 +20,7 @@ tasks:
         sourceSet: SRC
     name: "Introduction"
   - description: >
-      Solve first part of Hangman task, and then press "Next".
+      Please open the first "Hangman" task and read its description. You have 3 minutes for this.
     files:
       - extension: KOTLIN
         filename: Main
@@ -35,7 +35,7 @@ tasks:
     id: pre_test_intro
     name: "Hangman First part"
   - description: >
-      Solve second part of Hangman task, and then press "Next".
+      Please open the next "Hangman" task and read its description, you will need to debug and fix the code. You have 7 minutes for this.
     files:
       - extension: KOTLIN
         filename: Main
@@ -50,7 +50,10 @@ tasks:
     id: pre_test_main
     name: "Hangman Second part"
   - description: >
-      Solve Almost done task, and then press "Next".
+      Please spend the next 40 minutes working on the “Almost Done” lesson. 
+      During this time, the AI Debugger will be available—when you press “Check” and your solution doesn’t pass, it will appear to offer guidance. 
+      If you run into any bugs or errors, use the feature to help identify and fix the issue.
+      Don't worry if you're unable to finish the lesson in 40 minutes; focus on learning and making progress.
     files:
       - extension: KOTLIN
         filename: Main
@@ -60,7 +63,7 @@ tasks:
     id: ai_assistant_training
     name: "Almost done Task"
   - description: >
-      Solve Last push first part, and then press "Next".
+      Please open the first "Last push" task and read its description. You have 3 minutes for this.
     files:
       - extension: KOTLIN
         filename: Main
@@ -75,7 +78,7 @@ tasks:
     id: post_test_intro
     name: "Last Push First part"
   - description: >
-      Solve Last push second part, and then press "Next".
+      Please open the next "Last push" task and read its description, you will need to debug and fix the code. You have 7 minutes for this.
     files:
       - extension: KOTLIN
         filename: Main
