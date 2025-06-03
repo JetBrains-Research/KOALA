@@ -87,3 +87,7 @@ a:visited {
 .webcam-info-img {
     width: 25vmin;
 }
+
+ol {
+    text-align: left;
+}

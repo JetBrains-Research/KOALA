@@ -176,3 +176,47 @@ data class HtmlQuestionContainer(override val text: String) : HtmlQuestion() {
         }
     }
 }
+
+@Serializable
+data class Labels(
+    val min: String,
+    val max: String
+)
+
+@Serializable
+@SerialName("Slider")
+data class SliderHtmlQuestion(
+    override val text: String,
+    override val elementId: String,
+    val min: Int,
+    val max: Int,
+    val step: Int = 1,
+    val labels: Labels
+) : HtmlQuestion() {
+    override fun toHtml(): String = buildString {
+        append(htmlText())
+        append("<input type=\"range\" id=\"$elementId\" name=\"$elementId\" ")
+        append("min=\"$min\" max=\"$max\" step=\"$step\" ${isRequiredString()} ")
+        append(" style=\"width: 100%; display: block;\">")
+
+        append("<div style=\"display: flex; justify-content: space-between; color: white;\">")
+        (min..max step step).forEachIndexed { index, value ->
+            append("<div style=\"text-align: center; flex: 1; position: relative;\">")
+            append("<div style=\"width: 2px; height: 10px; background: white; margin: auto;\"></div>")
+            if (index % TICK_LABEL_FREQUENCY == 0) {
+                append("<span style=\"display: block; margin-top: 2px;\">$value</span>")
+            }
+            append("</div>")
+        }
+        append("</div>")
+
+        append("<div style=\"display: flex; justify-content: space-between; color: white;\">")
+        append("<span>${labels.min}</span>")
+        append("<span>${labels.max}</span>")
+        append("</div>")
+    }
+
+    companion object {
+        private const val TICK_LABEL_FREQUENCY = 5
+    }
+}

@@ -1,4 +1,83 @@
 tasks:
-  - description: "Description should be specified here"
-    id: main
-    name: "Name Example"
+  - description: >
+      <ol>
+          <li>Go to <a class="defaultBrowser" href="https://author.runestone.academy/user/login">https://author.runestone.academy/user/login</a>.</li>
+          <li>Create a free account.</li>
+          <li>Enroll in the <code>agent-eval-parsons-problems-pre</code> course and take it.</li>
+          <li>After that, press the "Next" button.</li>
+      </ol>
+    id: parsons_problems_pre
+    name: "Parsons problems"
+
+  - description: >
+      <ol>
+          <li>Go to <a class="defaultBrowser" href="https://author.runestone.academy/user/login">https://author.runestone.academy/user/login</a>.</li>
+          <li>Enroll in the <code>agent-eval-parsons-problems-post</code> course and take it.</li>
+          <li>After that, press the "Next" button.</li>
+      </ol>
+    id: parsons_problems_post
+    name: "Parsons problems"
+
+  - description: >
+      Solve "Tutorial" lesson in the "Kotlin Onboarding: Introduction" course, and after that, press the "Next" button.
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Tutorial/task/src/main/kotlin/jetbrains/course/tutorial
+        sourceSet: SRC
+    id: tutorial
+    name: "Cognifire Research"
+
+  - description: >
+      Solve "The first date with programming" lesson, and after that, press the "Next" button.
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: Introduction/task/src/main/kotlin/jetbrains/kotlin/course/welcome
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: RealQuestions
+        isInternal: false
+        relativePath: TheFirstDateWithProgramming/task/src/main/kotlin/jetbrains/kotlin/course/first/date
+        sourceSet: SRC
+    id: the_first_date_with_programming
+    name: "Cognifire Research"
+
+  - description: >
+      Solve "Warm Up" and "Mastermind Advanced" lessons, and after that, press the "Next" button.
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: WarmUp/task/src/main/kotlin/jetbrains/kotlin/course/warmup
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: MastermindAdvanced/task/src/main/kotlin/jetbrains/kotlin/course/mastermind/advanced
+        sourceSet: SRC
+      - extension: KOTLIN
+        filename: Util
+        isInternal: false
+        relativePath: WarmUp/task/src/main/kotlin/jetbrains/kotlin/course/warmup
+        sourceSet: SRC
+    id: warm_up_and_mastermind_advanced
+    name: "Cognifire Research"
+
+  - description: >
+      Solve "Almost Done" lesson, and after that, press the "Next" button.
+    files:
+      - extension: KOTLIN
+        filename: Main
+        isInternal: false
+        relativePath: AlmostDone/task/src/main/kotlin/jetbrains/kotlin/course/almost/done
+        sourceSet: SRC
+    id: almost_done
+    name: "Cognifire Research"

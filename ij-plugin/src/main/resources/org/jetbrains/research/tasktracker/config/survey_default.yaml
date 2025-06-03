@@ -31,3 +31,157 @@ surveys:
         elementId: textarea
         rows: 5
         cols: 50
+
+  - id: NASA_task_load_index_before_tasks
+    htmlQuestions:
+      - !<Slider>
+        text: "How mentally demanding was your previous work or non work-related activities today?"
+        elementId: mental_demand
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How physically demanding was your previous work or non work-related activities today?"
+        elementId: physical_demand
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How hurried or rushed was the pace of your previous work or non work-related activities today?"
+        elementId: temporal_demand
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How successful were you in accomplishing what you were asked to do?"
+        elementId: performance
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Perfect"
+          max: "Failure"
+      - !<Slider>
+        text: "How hard did you have to work to accomplish your level of performance?"
+        elementId: effort
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How insecure, discouraged, irritated, stressed, and annoyed were you?"
+        elementId: frustration
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+
+  - id: NASA_task_load_index
+    htmlQuestions:
+      - !<Slider>
+        text: "How mentally demanding was the task?"
+        elementId: mental_demand
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How physically demanding was the task?"
+        elementId: physical_demand
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How hurried or rushed was the pace of the task?"
+        elementId: temporal_demand
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How successful were you in accomplishing what you were asked to do?"
+        elementId: performance
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Perfect"
+          max: "Failure"
+      - !<Slider>
+        text: "How hard did you have to work to accomplish your level of performance?"
+        elementId: effort
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+      - !<Slider>
+        text: "How insecure, discouraged, irritated, stressed, and annoyed were you?"
+        elementId: frustration
+        required: true
+        min: 0
+        max: 20
+        step: 1
+        labels:
+          min: "Very Low"
+          max: "Very High"
+
+  - id: final_survey
+    htmlQuestions:
+      - !<Textarea>
+        text: Describe your overall experience of learning Kotlin during this study. What aspects of the learning process stood out for you?
+        elementId: experience_question
+        rows: 5
+        cols: 50
+      - !<Textarea>
+        text: Describe a specific moment when you felt stuck during one of the projects. What did you do to get past that point?
+        elementId: stuck_question
+        rows: 5
+        cols: 50
+      - !<Textarea>
+        text: What specific features did you use most often to solve the programming tasks? Can you explain why?
+        elementId: features_question
+        rows: 5
+        cols: 50
+      - !<Textarea>
+        text: How would you compare your experience of expressing solutions in natural language versus formal programming syntax? Please describe any differences you noticed in your approach or efficiency.
+        elementId: natural_language_question
+        rows: 5
+        cols: 50
+      - !<Textarea>
+        text: Is there anything else you would like to share about your experience with this study?
+        elementId: anything_else_question
+        rows: 5
+        cols: 50
