@@ -16,7 +16,8 @@ data class MockTask(
     override val root: String = "",
     override val description: String = "",
     override val focusFileId: String? = null,
-    override val id: String = ""
+    override val id: String = "",
+    override val trackAllFiles: Boolean = false,
 ) : TaskWithFiles
 
 data class MockTaskFile(

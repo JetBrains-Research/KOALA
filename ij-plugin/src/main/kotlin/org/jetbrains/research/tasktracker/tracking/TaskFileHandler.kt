@@ -4,6 +4,9 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.fileEditor.FileEditorManagerEvent
+import com.intellij.openapi.fileEditor.FileEditorManagerListener
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
@@ -14,6 +17,11 @@ import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.newvfs.BulkFileListener
+import com.intellij.openapi.vfs.newvfs.events.VFileDeleteEvent
+import com.intellij.openapi.vfs.newvfs.events.VFileEvent
+import com.intellij.util.messages.MessageBusConnection
 import org.jetbrains.jps.model.serialization.PathMacroUtil
 import org.jetbrains.research.tasktracker.config.MainTaskTrackerConfig.Companion.PLUGIN_NAME
 import org.jetbrains.research.tasktracker.config.content.task.base.ITaskFileInfo
@@ -25,6 +33,7 @@ import java.io.File
 
 typealias ProjectTaskFileMap = MutableMap<Project, MutableMap<Task, MutableList<VirtualFile>>>
 typealias ProjectTaskIdFile = MutableMap<Project, MutableMap<Task, MutableMap<String, VirtualFile>>>
+typealias ProjectTaskConnectionMap = MutableMap<Project, MutableMap<Task, MessageBusConnection>>
 
 @Suppress("UnusedPrivateMember", "TooManyFunctions")
 object TaskFileHandler {
@@ -32,6 +41,7 @@ object TaskFileHandler {
     private var listener: DocumentListener? = null
     private val projectTaskIdToFile: ProjectTaskIdFile = HashMap()
     val projectToTaskToFiles: ProjectTaskFileMap = HashMap()
+    private val projectTaskToConnection: ProjectTaskConnectionMap = HashMap()
 
     fun initProject(project: Project) {
         listener = TaskDocumentListener(project)
@@ -39,16 +49,56 @@ object TaskFileHandler {
 
     private fun getListener() = listener ?: error("Listener is not define")
 
+    private fun startTrackingFile(project: Project, task: Task, file: VirtualFile) {
+        val alreadyRegistered = projectToTaskToFiles[project]?.get(task)?.let { file in it } ?: false
+        if (alreadyRegistered) {
+            return
+        }
+        addVirtualFileListener(project, file)
+        projectToTaskToFiles.putIfAbsent(project, mutableMapOf())
+        projectToTaskToFiles[project]?.putIfAbsent(task, mutableListOf())
+        projectToTaskToFiles[project]?.get(task)?.add(file)
+    }
+
     fun initTask(project: Project, task: Task) {
         projectTaskIdToFile.putIfAbsent(project, mutableMapOf())
         projectTaskIdToFile[project]?.putIfAbsent(task, mutableMapOf())
+
+        // Initialize tracking for specified files
         getOrCreateFiles(project, task).forEach { file -> // TODO sometimes problem with null array
             file?.let {
-                addVirtualFileListener(project, it)
-                projectToTaskToFiles.putIfAbsent(project, mutableMapOf())
-                projectToTaskToFiles[project]?.putIfAbsent(task, mutableListOf())
-                projectToTaskToFiles[project]?.get(task)?.add(it)
+                startTrackingFile(project, task, it)
             }
+        }
+
+        // If trackAllFiles is true, set up FileEditorTracker and BulkFileListener
+        if (task is TaskWithFiles && task.trackAllFiles) {
+            // Initialize BulkFileListener for file creation/deletion
+            projectTaskToConnection.putIfAbsent(project, mutableMapOf())
+            val connection = project.messageBus.connect()
+            projectTaskToConnection[project]?.put(task, connection)
+
+            // Subscribe to file system events
+            connection.subscribe(VirtualFileManager.VFS_CHANGES, object : BulkFileListener {
+                override fun after(events: List<VFileEvent>) {
+                    removeVirtualFileListener(project, events.filterIsInstance<VFileDeleteEvent>().map { it.file })
+                }
+            })
+
+            // Subscribe to file editor events to track files opened after task initialization
+            connection.subscribe(
+                FileEditorManagerListener.FILE_EDITOR_MANAGER,
+                object : FileEditorManagerListener {
+                    override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
+                        startTrackingFile(project, task, file)
+                    }
+
+                    override fun selectionChanged(event: FileEditorManagerEvent) {
+                        val file = event.newFile ?: return
+                        startTrackingFile(project, task, file)
+                    }
+                }
+            )
         }
     }
 
@@ -62,6 +112,7 @@ object TaskFileHandler {
 
     // TODO not forget to remove from document loggers hashmap, flush data
     fun disposeTask(project: Project, task: Task) {
+        // Clean up document listeners for tracked files
         projectToTaskToFiles[project]?.let {
             it[task]?.let { virtualFiles -> removeVirtualFileListener(project, virtualFiles) }
                 ?: logger.warn("attempt to dispose a uninitialized task: '$task'")
@@ -72,6 +123,17 @@ object TaskFileHandler {
                 projectTaskIdToFile.remove(project)
             }
         } ?: logger.warn("attempt to dispose task: '$task' from uninitialized project: '$project'")
+
+        // Clean up MessageBusConnection if it exists
+        projectTaskToConnection[project]?.let { connections ->
+            connections[task]?.let { connection ->
+                connection.disconnect()
+                connections.remove(task)
+                if (connections.isEmpty()) {
+                    projectTaskToConnection.remove(project)
+                }
+            }
+        }
     }
 
     private fun addVirtualFileListener(project: Project, virtualFile: VirtualFile) {

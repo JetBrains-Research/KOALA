@@ -14,5 +14,6 @@ data class ProgrammingTask(
     override val files: List<TaskFileInfo> = emptyList(),
     override val root: String = name,
     val language: Extension? = null,
-    override val focusFileId: String? = null
+    override val focusFileId: String? = null,
+    override val trackAllFiles: Boolean = false,
 ) : TaskWithFiles

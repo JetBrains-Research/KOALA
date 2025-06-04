@@ -6,6 +6,8 @@ interface TaskWithFiles : Task {
      */
     val files: List<ITaskFileInfo>
 
+    val trackAllFiles: Boolean
+
     /**
      * @return id of the file that the development environment
      * will focus on when the current task init.

@@ -2,3 +2,4 @@ tasks:
   - description: "Description should be specified here"
     id: main
     name: "Name Example"
+    trackAllFiles: true
