@@ -50,7 +50,7 @@ data class MainTaskTrackerConfig(
     companion object {
         val logger = Logger.getInstance(MainTaskTrackerConfig::class.java)
 
-        const val PLUGIN_NAME = "tasktracker"
+        const val PLUGIN_NAME = "koala"
         val pluginFolderPath = "${PathManager.getPluginsPath()}/$PLUGIN_NAME"
         val agreementFilePath = "$pluginFolderPath/agreement/agreement.json"
         val logFilesFolder = "$pluginFolderPath/logs"

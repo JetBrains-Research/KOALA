@@ -5,7 +5,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "tasktracker-3"
+rootProject.name = "koala"
 include("ij-plugin")
 include("ij-server")
 include("processing")
