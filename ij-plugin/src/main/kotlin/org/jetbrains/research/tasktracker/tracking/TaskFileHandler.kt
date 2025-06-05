@@ -73,6 +73,10 @@ object TaskFileHandler {
 
         // If trackAllFiles is true, set up FileEditorTracker and BulkFileListener
         if (task is TaskWithFiles && task.trackAllFiles) {
+            FileEditorManager.getInstance(project).openFiles.forEach {
+                startTrackingFile(project, task, it)
+            }
+
             // Initialize BulkFileListener for file creation/deletion
             projectTaskToConnection.putIfAbsent(project, mutableMapOf())
             val connection = project.messageBus.connect()

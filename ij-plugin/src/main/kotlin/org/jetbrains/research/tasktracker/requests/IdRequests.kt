@@ -19,11 +19,14 @@ object IdRequests {
     fun getUserId(name: String, email: String): Int? =
         runBlocking {
             val url = getRoute("create-user")
+            val researchId = TaskTrackerPlugin.mainConfig.pluginInfoConfig?.let {
+                it.researchId
+            } ?: error("Plugin info config is uninitialized")
             try {
                 return@runBlocking client.submitForm(
                     url = url,
                     formParameters = mapOf(
-                        "name" to name,
+                        "name" to "${researchId}_$name",
                         "email" to email
                     ).buildParameters()
                 ).body<Int>()
