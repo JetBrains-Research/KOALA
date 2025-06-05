@@ -1,5 +1,5 @@
 tasks:
   - description: "Tracking is working now, you can start coding. Before closing the project, please come back here and press the \"Next\" button."
     id: main
-    name: "All is setup"
+    name: "All is set up"
     trackAllFiles: true
