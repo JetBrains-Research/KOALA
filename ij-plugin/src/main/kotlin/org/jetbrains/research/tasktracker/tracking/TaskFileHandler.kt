@@ -13,6 +13,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.roots.ModifiableRootModel
 import com.intellij.openapi.roots.ModuleRootManager
+import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VfsUtilCore
@@ -54,6 +55,11 @@ object TaskFileHandler {
         if (alreadyRegistered) {
             return
         }
+
+        if (!ProjectFileIndex.getInstance(project).isInContent(file)) {
+            return
+        }
+
         addVirtualFileListener(project, file)
         projectToTaskToFiles.putIfAbsent(project, mutableMapOf())
         projectToTaskToFiles[project]?.putIfAbsent(task, mutableListOf())
@@ -73,8 +79,8 @@ object TaskFileHandler {
 
         // If trackAllFiles is true, set up FileEditorTracker and BulkFileListener
         if (task is TaskWithFiles && task.trackAllFiles) {
-            FileEditorManager.getInstance(project).openFiles.forEach {
-                startTrackingFile(project, task, it)
+            FileEditorManager.getInstance(project).selectedFiles.forEach { file ->
+                startTrackingFile(project, task, file)
             }
 
             // Initialize BulkFileListener for file creation/deletion
