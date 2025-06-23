@@ -1,6 +1,6 @@
 tasks:
   - description: >
-      Please follow the instructions in the manual, and when you have completed the course, return to this tab and click “next.” After a few seconds, a survey will appear.
+      Please follow the instructions in the print out instructions, and when you have completed the course, return to this tab and click “next.” After a few seconds, a survey will appear.
     files:
       - extension: KOTLIN
         filename: Main
