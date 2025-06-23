@@ -2,24 +2,6 @@ scenario:
   steps:
     - units:
         - !<Task>
-          id: "introductory_tasks"
-    - units:
-        - !<Task>
-          id: "pre_test_intro"
-          timerSeconds: 180
-        - !<Task>
-          id: "pre_test_main"
-          timerSeconds: 420
-    - units:
-        - !<Task>
-          id: "ai_assistant_training"
-          timerSeconds: 2400
-    - units:
-        - !<Task>
-          id: "post_test_intro"
-          timerSeconds: 180
-        - !<Task>
-          id: "post_test_main"
-          timerSeconds: 420
+          id: "main"
         - !<Survey>
           id: "final_survey"
