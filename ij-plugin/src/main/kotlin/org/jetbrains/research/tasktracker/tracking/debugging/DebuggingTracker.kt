@@ -1,6 +1,5 @@
 package org.jetbrains.research.tasktracker.tracking.debugging
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.messages.MessageBusConnection
 import com.intellij.xdebugger.XDebugProcess
@@ -66,7 +65,7 @@ class DebuggingTracker(private val project: Project) : BaseTracker("debugging") 
         }
 
         // Register the manager listener
-        sessionConnection = ApplicationManager.getApplication().messageBus.connect()
+        sessionConnection = project.messageBus.connect()
         sessionConnection?.subscribe(XDebuggerManager.TOPIC, managerListener)
     }
 
@@ -103,7 +102,7 @@ class DebuggingTracker(private val project: Project) : BaseTracker("debugging") 
             }
         }
 
-        breakpointConnection = ApplicationManager.getApplication().messageBus.connect().apply {
+        breakpointConnection = project.messageBus.connect().apply {
             subscribe(XBreakpointListener.TOPIC, breakpointListener)
         }
     }
