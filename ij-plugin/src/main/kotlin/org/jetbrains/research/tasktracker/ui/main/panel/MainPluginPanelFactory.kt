@@ -20,7 +20,6 @@ import org.jetbrains.research.tasktracker.ui.main.panel.models.AgreementChecker
 import org.jetbrains.research.tasktracker.ui.main.panel.models.ButtonState
 import org.jetbrains.research.tasktracker.ui.main.panel.models.LinkType
 import org.jetbrains.research.tasktracker.ui.main.panel.panelStates.agreementAcceptance
-import org.jetbrains.research.tasktracker.ui.main.panel.panelStates.stopTracking
 import org.jetbrains.research.tasktracker.ui.main.panel.storage.GlobalPluginStorage
 import org.jetbrains.research.tasktracker.ui.main.panel.template.HtmlTemplate
 import org.jetbrains.research.tasktracker.util.UIBundle
@@ -37,9 +36,11 @@ import java.awt.FlowLayout
 @Suppress("TooManyFunctions")
 class MainPluginPanelFactory : ToolWindowFactory {
     // TODO: init in other place, states can be saved between sessions
-    private val nextButton = createJButton("ui.button.next")
+    val nextButton = createJButton("ui.button.next")
     private val backButton = createJButton("ui.button.back", isVisibleProp = false)
-    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
+
+    //    private val pauseButton = createJButton("ui.button.pause", isVisibleProp = false)
+
     private val logger: Logger = Logger.getInstance(MainPluginPanelFactory::class.java)
 
     lateinit var trackingService: TrackingService
@@ -53,7 +54,7 @@ class MainPluginPanelFactory : ToolWindowFactory {
         mainWindow = project.getService(MainWindowService::class.java).mainWindow
         trackingService = project.getService(TrackingService::class.java)
         mainWindow.jComponent.size = JBUI.size(toolWindow.component.width, toolWindow.component.height)
-        pauseButton.setListener { stopTracking() }
+//        pauseButton.setListener { stopTracking() }
         mainWindow.onError {
             nextButton.text = UIBundle.message("ui.button.welcome")
             setNextAction { agreementAcceptance() }
@@ -61,7 +62,7 @@ class MainPluginPanelFactory : ToolWindowFactory {
         agreementAcceptance()
         val buttonPanel = JBPanel<JBPanel<*>>(FlowLayout()).apply {
             add(backButton)
-            add(pauseButton)
+//            add(pauseButton)
             add(nextButton)
         }
         val panel = JBPanel<JBPanel<*>>(BorderLayout()).apply {
@@ -77,26 +78,30 @@ class MainPluginPanelFactory : ToolWindowFactory {
     @Suppress("LongParameterList")
     fun loadBasePage(
         template: HtmlTemplate,
-        buttonTextKey: String? = null,
+        buttonTextKey: String? = "ui.button.next",
         isVisibleBackButton: Boolean = false,
         backButtonText: String? = null,
         isVisibleNextButton: Boolean = true,
+        @Suppress("UnusedParameter")
         pauseButtonText: String? = null,
-        isVisiblePauseButton: Boolean = true
+        @Suppress("UnusedParameter")
+        isVisiblePauseButton: Boolean = true,
+        isNextButtonEnabled: Boolean = true,
     ) {
         mainWindow.loadHtmlTemplate(template)
         backButton.isVisible = isVisibleBackButton
         nextButton.isVisible = isVisibleNextButton
-        pauseButton.isVisible = isVisiblePauseButton
+        nextButton.isEnabled = isNextButtonEnabled
+//        pauseButton.isVisible = isVisiblePauseButton
         backButtonText?.let {
             backButton.text = UIBundle.message(it)
         }
         buttonTextKey?.let {
             nextButton.text = UIBundle.message(it)
         }
-        pauseButtonText?.let {
-            pauseButton.text = UIBundle.message(it)
-        }
+//        pauseButtonText?.let {
+//            pauseButton.text = UIBundle.message(it)
+//        }
     }
 
     fun focusOnfFileById(task: Task, id: String?) {

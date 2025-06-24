@@ -1,33 +1,271 @@
 surveys:
-  - id: default
+  - id: final_survey
     htmlQuestions:
-      - !<Radio>
-        text: Single choice question
-        elementId: single
+      - !<Slider>
+        text: "The AI debugging assistant was helpful during the debugging process."
+        elementId: helpfulness
         required: true
-        info:
-          - id: single1
-            value: 1
-          - id: single2
-            value: 2
-          - id: single3
-            value: 3
-      - !<Checkbox>
-        text: Multichoice question
-        elementId: multichoice
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "The breakpoints suggested by the assistant were placed in relevant locations."
+        elementId: breakpoint_relevance
         required: true
-        info:
-          - id: multichoice1
-            value: 1
-          - id: multichoice2
-            value: 2
-          - id: multichoice3
-            value: 3
-      - !<Input>
-        text: Input question
-        elementId: input
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "The explanations provided for the suggested breakpoints were clear."
+        elementId: breakpoint_explanation_clarity
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "The explanations helped me understand what to focus on while debugging."
+        elementId: explanation_focus_understanding
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "I have mastered the debugging skills."
+        elementId: debugging_mastery
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "I stayed mentally focused and engaged while debugging my code with the AI debugging assistant."
+        elementId: debugging_focus_engagement
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "The process of debugging with the help of the AI debugging assistant encouraged me to think critically about my code."
+        elementId: critical_thinking_encouragement
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "I felt a sense of accomplishment after finishing a debugging session with the AI debugging assistant."
+        elementId: debugging_accomplishment
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "I felt that the amount of help I received from the AI debugging assistant was appropriate - neither too much nor too little."
+        elementId: help_amount_appropriateness
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+      - !<Slider>
+        text: "Using the AI debugging assistant to debug my code felt like cheating."
+        elementId: cheating_feeling
+        required: true
+        min: 1
+        max: 5
+        step: 1
+        labels:
+          min: "Strongly disagree"
+          max: "Strongly agree"
+
+      - !<Slider>
+        text: "The content of the debugging tasks in this session was very complex."
+        elementId: debugging_task_complexity
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "The programming problems I worked on were complex to solve."
+        elementId: programming_problem_complexity
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "The tasks included programming terms or concepts that were difficult to understand."
+        elementId: concept_difficulty
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "I invested a high amount of mental effort to deal with the complexity of the programming and debugging tasks."
+        elementId: mental_effort
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "The instructions, explanations, or hints provided during the session were unclear."
+        elementId: instruction_clarity
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "Some of the explanations (including those from the AI debugging assistant) used confusing language."
+        elementId: explanation_confusing_language
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "The support I received (instructions, explanations, or hints) was not very effective."
+        elementId: support_effectiveness
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "I spent a lot of mental effort trying to deal with unclear or ineffective instructions, explanations and hints."
+        elementId: support_mental_effort
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "This session improved my understanding of how to debug code."
+        elementId: debugging_understanding_improvement
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "This session helped me understand the programming problems I was working on."
+        elementId: programming_problem_understanding
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "This session helped me understand key programming concepts and terminology."
+        elementId: programming_concept_understanding
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "This session helped me learn how to approach similar debugging problems in the future."
+        elementId: debugging_approach_learning
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+      - !<Slider>
+        text: "I invested significant mental effort in learning and improving my understanding during this session."
+        elementId: learning_effort
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not at all true"
+          max: "Completely true"
+
+      - !<Slider>
+        text: "How likely are you to use the AI debugging assistant in the future?"
+        elementId: future_use_likelihood
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not likely"
+          max: "Extremely likely"
+      - !<Slider>
+        text: "How likely are you to recommend the AI debugging assistant to your peers?"
+        elementId: recommendation_likelihood
+        required: true
+        min: 0
+        max: 10
+        step: 1
+        labels:
+          min: "Not likely"
+          max: "Extremely likely"
+
       - !<Textarea>
-        text: Textarea question
-        elementId: textarea
+        text: What did you find most helpful about the AI debugging assistant?
+        elementId: most_helpful_aspect
+        rows: 5
+        cols: 50
+      - !<Textarea>
+        text: In your opinion, to what extent does this assistant help in learning how to debug?
+        elementId: debug_learning_assistance
+        rows: 5
+        cols: 50
+      - !<Textarea>
+        text: Do you have any suggestions for improving the assistant or the debugging experience?
+        elementId: improvement_suggestions
         rows: 5
         cols: 50

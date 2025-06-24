@@ -4,4 +4,4 @@ scenario:
         - !<Task>
           id: "main"
         - !<Survey>
-          id: "default"
+          id: "final_survey"

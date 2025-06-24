@@ -1,0 +1,11 @@
+scenario:
+  steps:
+    - units:
+        - !<Task>
+          id: "main"
+        # Example of a task with a timer (60 seconds)
+        - !<Task>
+          id: "timed_task"
+          timerSeconds: 60
+        - !<Survey>
+          id: "default"

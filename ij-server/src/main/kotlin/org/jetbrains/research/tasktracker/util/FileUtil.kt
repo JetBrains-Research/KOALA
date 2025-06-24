@@ -1,9 +1,8 @@
 package org.jetbrains.research.tasktracker.util
 
 import io.ktor.http.content.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.util.pipeline.*
+import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.research.tasktracker.database.models.Research
 import java.io.File
@@ -13,7 +12,7 @@ import kotlin.io.path.createDirectories
 
 private const val FILE_DIRECTORY = "/data/tt-files/"
 
-suspend inline fun PipelineContext<Unit, ApplicationCall>.createLogFile(
+suspend inline fun RoutingContext.createLogFile(
     logFileType: String,
     researchId: Int
 ): File {
