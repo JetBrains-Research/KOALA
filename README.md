@@ -36,6 +36,8 @@ The described data is collected in CSV files. The examples of individual data po
 
 Additionally, the plugin allows you to collect not only the previously described data, which is tracked by KOALA itself, but also the data produced by other plugins or tools. For this purpose, in the configuration settings, it is possible to specify the location of the file that will be produced by a third-party tool, and then the file will be sent to the server and further processed. This allows KOALA to obtain an even richer view of students' interactions with the IDE.
 
+The open data that has already been collected can be found [here](https://zenodo.org/records/15553341).
+
 ## Easy Configuration and Setup
 
 KOALA is designed for maximum flexibility without requiring source code changes. All experiments can be configured
